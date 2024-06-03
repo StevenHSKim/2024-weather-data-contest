@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 # 이상치 탐지 및 처리 함수 수정
 def handle_outliers(data):
     columns_to_interpolate = [
-        'fog_train.ws10_deg',
+        # 'fog_train.ws10_deg',
         'fog_train.ws10_ms',
         'fog_train.ta',
         'fog_train.hm',
@@ -22,9 +22,9 @@ def handle_outliers(data):
         data.loc[(data['fog_train.class'] != 4) & (data[column].isna()), column] = data[column].interpolate(method='linear')
         data = data[~((data['fog_train.class'] == 4) & (data[column].isna()))]
     
-    # 'fog_train.ws10_deg'의 추가 처리 (0도 너무 많아서 보간법으로 처리)
-    data['fog_train.ws10_deg'].replace(0, np.nan, inplace=True)
-    data['fog_train.ws10_deg'] = data['fog_train.ws10_deg'].interpolate(method='linear')
+    # # 'fog_train.ws10_deg'의 추가 처리 (0도 너무 많아서 보간법으로 처리)
+    # data['fog_train.ws10_deg'].replace(0, np.nan, inplace=True)
+    # data['fog_train.ws10_deg'] = data['fog_train.ws10_deg'].interpolate(method='linear')
     
     # 'fog_train.re'는 -99.9를 drop
     data = data[data['fog_train.re'] != -99.9]
